@@ -22,23 +22,18 @@ Available states
 ``unifi``
 ---------
 
-Installs the unifi service.
+Installs the unifi service. If an ssl_cert is specified in pillar, that cert
+will be installed. Please GPG encrypt it!
 
-
-``unifi.cert``
---------------
-
-Installs a custom SSL certificate for unifi.
-
-Set cert data in `unifi:lookup:keystore:ssl_cert` with GPG encryption first.
 
 ``unifi.password``
 ------------------
 
 Sets the unifi keystore password.
 
-Ensure `unifi:lookup:keystore:password` is set to your NEW password.
-Ensure `unifi:lookup:keystore:password_old` is set to your OLD password.
+Your NEW password should be set in `config:password`.
+Your OLD password should be set in `config:password_old`.
+ * The default password is used as OLD if not specified.
 
 Both of these should be GPG encrypted in pillar.
 

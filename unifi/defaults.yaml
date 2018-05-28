@@ -1,5 +1,3 @@
-#!yaml|gpg
-
 unifi:
   service: unifi
   package: unifi
@@ -8,11 +6,9 @@ unifi:
     - haveged
 
   keystore:
-    ssl_cert:
     cache: /var/cache/salt/minion/ubiquiti_unifi.pkcs12
     dest: /var/lib/unifi/keystore
     password: 'aircontrolenterprise'
-    password_old:
     keytool: /usr/bin/keytool
 
   release:

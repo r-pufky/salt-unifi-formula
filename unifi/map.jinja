@@ -1,3 +1,4 @@
 {%- import_yaml "unifi/defaults.yaml" as defaults -%}
 
 {%- set unifi = salt['pillar.get']('unifi:lookup', defaults.unifi, merge=True) -%}
+{%- set config = salt['pillar.get']('unifi:config', {}) -%}

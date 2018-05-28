@@ -1,4 +1,8 @@
-{%- from "unifi/map.jinja" import unifi with context -%}
+{%- from "unifi/map.jinja" import unifi, config with context -%}
+{%- set password = config.get('password', unifi.keystore.password) -%}
+{%- set import_cert = unifi.keystore.keytool ~ ' -importkeystore -srckeystore ' ~ unifi.keystore.cache ~ ' -srcstoretype PKCS12 -destkeystore ' ~ unifi.keystore.dest ~ ' -deststorepass ' ~ password ~ ' -srcstorepass ' ~ password ~ ' -noprompt' -%}
+{%- set ssl_cert = config.get('ssl_cert', '') -%}
+
 
 ubiquiti_unifi_repo:
   pkgrepo.managed:
@@ -15,6 +19,22 @@ unifi_package_dependencies:
 {%- for pkg in unifi.package_dependencies %}
       - {{ pkg }}
 {%- endfor %}
+
+{% if ssl_cert %}
+load_ssl_to_keystore:
+  file.managed:
+    - name: {{ unifi.keystore.cache }}
+    - contents_pillar: unifi:config:ssl_cert
+  cmd.run:
+    - name: {{ import_cert }}
+    - shell: /bin/sh
+
+remove_keystore_input:
+  file.absent:
+    - name: {{ unifi.keystore.cache }}
+    - require:
+      - cmd: load_ssl_to_keystore
+{% endif %}
 
 ubiquiti_service:
   service.running:

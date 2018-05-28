@@ -4,8 +4,13 @@ unifi:
   # Lookup values are set in defaults.yaml and may be overridden here.
   lookup:
     keystore:
-      ssl_cert: # should GPG encrypt
       cache: /var/cache/salt/minion/ubiquiti_unifi.pkcs12
       dest: /var/lib/unifi/keystore
-      password: 'aircontrolenterprise' # should GPG encrypt. default unifi pw.
-      password_old: # should GPG encrypt
+      password: 'aircontrolenterprise'
+
+  # certs and passwords should be GPG encrypted.
+  config:
+    ssl_cert:
+    password:
+    # If changing keystore passwords, set this to the old password.
+    password_old:
