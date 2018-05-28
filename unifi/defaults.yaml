@@ -1,0 +1,22 @@
+#!yaml|gpg
+
+unifi:
+  service: unifi
+  package: unifi
+
+  package_dependencies:
+    - haveged
+
+  keystore:
+    ssl_cert:
+    cache: /var/cache/salt/minion/ubiquiti_unifi.pkcs12
+    dest: /var/lib/unifi/keystore
+    password: 'aircontrolenterprise'
+    password_old:
+    keytool: /usr/bin/keytool
+
+  release:
+    entropy_cloud: https://www.digitalocean.com/community/tutorials/how-to-setup-additional-entropy-for-cloud-servers-using-haveged
+    reference_doc: https://support.code42.com/CrashPlan/5/Get_started/Install_the_Code42_app#Linux
+    unifi_ssl_certs: https://lg.io/2015/12/13/using-lets-encrypt-to-secure-cloud-hosted-services-like-ubiquitis-mfi-unifi-and-unifi-video.html
+    self_signed_pkcs12: https://www.ibm.com/support/knowledgecenter/en/SSWHYP_4.0.0/com.ibm.apimgmt.cmc.doc/task_apionprem_gernerate_self_signed_openSSL.html
